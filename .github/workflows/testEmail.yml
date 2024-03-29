@@ -1,0 +1,27 @@
+name: Appium Tests with SharePoint & Email
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test_and_notify:  # Renamed job for clarity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: echo "Hello, Worlds!"
+
+      # New step for sending email notification
+      - name: Send email notification (on success only)
+        if: success()  # This step only runs if the previous steps succeed
+        uses: actions/email@v3
+        with:
+          subject: 'Appium Tests Completed Successfully - ${{ github.sha }}'
+          recipient: 'mithmahesh@gmail.com'  # Replace with team email
+          body: |
+            The Appium tests have completed successfully.
+
+            **Report:** [SharePoint report link]({{ secrets.SHAREPOINT_SITE_URL }}/{{ secrets.SHAREPOINT_LIBRARY_PATH }}/report.html)
+            **Screenshots:** [SharePoint Screenshots folder link]({{ secrets.SHAREPOINT_SITE_URL }}/{{ secrets.SHAREPOINT_LIBRARY_PATH }}/Screenshots)
+
+
