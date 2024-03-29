@@ -2,7 +2,7 @@ name: Send Email on Push
 
 on:
   push:
-    branches: [ any ]  # This sends email on push to any branch (replace with specific branches if needed)
+    branches: [any] # This sends email on push to any branch (replace with specific branches if needed)
 
 jobs:
   send_email:
@@ -12,8 +12,8 @@ jobs:
 
       - uses: actions/email@v3
         with:
-          subject: 'Push Notification - ${{ github.sha }}'
-          recipient: 'your_email@example.com'  # Replace with your email address
+          subject: "Push Notification - ${{ github.sha }}"
+          recipient: "your_email@example.com" # Replace with your email address
           body: |
             A push has been made to the repository.
 
