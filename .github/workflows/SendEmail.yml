@@ -1,24 +1,23 @@
-name: Appium Tests with SharePoint & Email
+name: Send Email on Push
 
 on:
   push:
-    branches: [main]
+    branches: [ any ]  # This sends email on push to any branch (replace with specific branches if needed)
 
 jobs:
-  test_and_notify: # Renamed job for clarity
+  send_email:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: echo "Hello, Worlds!"
 
-      # New step for sending email notification
-      - name: Send email notification (on success only)
-        if: success() # This step only runs if the previous steps succeed
-        uses: actions/email@v3
+      - uses: actions/email@v3
         with:
-          subject: "Appium Tests Completed Successfully - ${{ github.sha }}"
-          recipient: "mithmahesh@gmail.com" # Replace with team email
+          subject: 'Push Notification - ${{ github.sha }}'
+          recipient: 'your_email@example.com'  # Replace with your email address
           body: |
-            The Appium tests have completed successfully.
-            **Report:** [SharePoint report link]({{ secrets.SHAREPOINT_SITE_URL }}/{{ secrets.SHAREPOINT_LIBRARY_PATH }}/report.html)
-            **Screenshots:** [SharePoint Screenshots folder link]({{ secrets.SHAREPOINT_SITE_URL }}/{{ secrets.SHAREPOINT_LIBRARY_PATH }}/Screenshots)
+            A push has been made to the repository.
+
+            **Branch:** ${{ github.ref }}
+            **SHA:** ${{ github.sha }}
+
+            [View commit](https://github.com/${{ github.repository }}/commit/${{ github.sha }})  # Link to the commit
