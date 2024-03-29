@@ -2,7 +2,7 @@ name: Send Email on Push
 
 on:
   push:
-    branches: [any] # This sends email on push to any branch (replace with specific branches if needed)
+    branches: [any] # This sends email on push to any bnch (replace with specific branches if needed)
 
 jobs:
   send_email:
